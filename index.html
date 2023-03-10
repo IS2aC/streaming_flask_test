@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <script>
+      setInterval(function() {
+        fetch('/data_test')
+          .then(response => response.json())
+          .then(data => updateElement(data));
+      }, 1000);
+
+      function updateElement(data) {
+        let element = document.getElementById('value');
+        let previousValue = element.innerHTML;
+        let newValue = data.value.toString();
+
+        if (previousValue !== newValue) {
+          blinkUpdate(element, newValue);
+        }
+      }
+
+      function blinkUpdate(element, newValue, newColor='#00ff00') {
+        let previousColor = element.style.color;
+        element.innerHTML = newValue;
+        element.style.color = newColor;
+
+        setTimeout(() => {
+          element.style.color = previousColor;
+        }, 6000);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Valeur aléatoire :</h1>
+    <p id="value">{{dt}}</p>
+  </body>
+</html>
